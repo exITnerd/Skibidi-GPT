@@ -1,0 +1,27 @@
+SELECT 
+    s.student_index,
+    g.group_name,
+    sub.subject_name,
+    sub.lesson_form,
+    t.first_name AS teacher_first_name,
+    t.last_name AS teacher_last_name,
+    t.title AS teacher_title,
+    r.room_name,
+    l.start_time,
+    l.end_time,
+    l.lesson_status,
+    l.status_item
+FROM 
+    students s
+JOIN 
+    groups g ON s.group_id = g.group_id
+JOIN 
+    lessons l ON g.group_id = l.group_id
+JOIN 
+    subjects sub ON l.subject_id = sub.subject_id
+JOIN 
+    teachers t ON l.teacher_id = t.teacher_id
+JOIN 
+    rooms r ON l.room_id = r.room_id
+ORDER BY 
+    s.student_index, l.start_time;
