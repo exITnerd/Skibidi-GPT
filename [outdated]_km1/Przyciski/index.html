@@ -5,123 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plan ZUT</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            background-color: white;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: flex-end;
-        }
-
-        .logo {
-            font-size: 50px;
-            font-weight: bold;
-            text-align: left;
-            margin-right: 400px;
-        }
-
-        .logo span {
-            color: green;
-        }
-
-        header .university {
-            font-size: 14px;
-            text-align: right;
-        }
-
-        .sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 60px;
-            height: 100%;
-            background-color: #e0e0e0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 20px;
-        }
-
-        .sidebar .icon {
-            margin: 10px 0;
-            width: 30px;
-            height: 30px;
-            background-color: #c4c4c4;
-            border-radius: 50%;
-        }
-
-        .content {
-            margin-left: 80px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .buttons-container {
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            gap: 10px;
-            height: 60px;
-        }
-
-        .buttons-container input {
-            width: 120px;
-            height: 40px;
-            box-sizing: border-box;
-            font-size: 14px;
-        }
-
-        .buttons-container button {
-            padding: 5px 10px;
-            border: 1px solid #c4c4c4;
-            background-color: #f9f9f9;
-            cursor: pointer;
-            font-size: 14px;
-            height: 40px;
-        }
-
-        .filters {
-            /* display: flex; */
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
-
-        .filters button {
-            margin: 5px;
-            padding: 5px 10px;
-            font-size: 12px;
-            border: 1px solid #c4c4c4;
-            background-color: #f9f9f9;
-            cursor: pointer;
-        }
-
-        .bottom-buttons {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-        }
-
-        .bottom-buttons button {
-            padding: 5px 10px;
-            font-size: 14px;
-            border: 1px solid #c4c4c4;
-            background-color: #f9f9f9;
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <div class="university">Zachodniopomorski Uniwersytet Technologiczny w Szczecinie</div>
+        <img src="images/logo-zut.svg" alt="logo">
     </header>
     <div class="sidebar">
         <div class="icon"><button><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-brightness-high-fill" viewBox="0 0 16 16">
@@ -143,8 +31,9 @@
           </svg></button></div>
     </div>
     <div class="content">
+        <div class="name">PLAN <span>ZUT</span></div>
         <div class="buttons-container">
-            <div class="logo">PLAN <span>ZUT</span></div>
+            
             <input type="text" placeholder="Wykładowca">
             <input type="text" placeholder="Sala/Budynek">
             <input type="text" placeholder="Przedmiot">
@@ -154,7 +43,7 @@
         </div>
         <div class="filters">
             <button>Laboratorium</button>
-            <button>Audytorium</button> <br>
+            <button>Audytorium</button>
             <button>Wykład</button>
             <button>Lektorat</button>
             <button>Projekt</button>
