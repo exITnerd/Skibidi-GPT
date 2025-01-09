@@ -1,0 +1,11 @@
+{
+    "name": "exitn/schedule-app",
+    "description": "New, better schedule for ZUT",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Exitn\\ScheduleApp\\": "src/"
+        }
+    },
+    "require": {}
+}

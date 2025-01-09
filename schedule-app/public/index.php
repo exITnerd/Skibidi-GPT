@@ -1,0 +1,17 @@
+<?php
+require_once __DIR__ . '/../src/Core/RouteManager.php';
+require_once __DIR__ . '/../src/Controllers/ScheduleController.php';
+
+use App\Core\RouteManager;
+use App\Controllers\ScheduleController;
+
+$routeManager = new RouteManager();
+$routeManager->addRoute('/', ScheduleController::class, 'index');
+$routeManager->addRoute('/search', ScheduleController::class, 'search');
+
+try {
+    $routeManager->dispatch($_SERVER['REQUEST_URI']);
+} catch (Exception $e) {
+    http_response_code(500);
+    echo 'Error: ' . $e->getMessage();
+}
