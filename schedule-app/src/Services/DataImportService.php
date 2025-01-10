@@ -17,7 +17,10 @@ class DataImportService
 
     public function importJsonFiles(): void
     {
-        $files = glob($this->jsonDirectory . '/ssh_teacher_*.json');
+        echo "Import started...\n";
+        echo "JSON Directory: " . $this->jsonDirectory . "\n";
+        $files = glob($this->jsonDirectory . '/*.json');
+        echo "Found " . count($files) . " JSON files.\n";
 
         foreach ($files as $file) {
             $jsonData = file_get_contents($file);
@@ -135,6 +138,6 @@ class DataImportService
     private function splitTeacherName(string $fullName): array
     {
         preg_match('/^(.*?) (.*?) (.*)$/', $fullName, $matches);
-        return [$matches[1], $matches[2], $matches[3]];
+        return [$matches[1], $matches[2], $matches[3]]; //errors everywhere bruuuuuh
     }
 }
