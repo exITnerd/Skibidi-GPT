@@ -68,7 +68,7 @@
 </div>
 
 <main>
-    <?php echo $content; ?> <!-- Here, a view is dynamically inserted from: src\Views\schedule\ -->
+    <?php echo $content; ?> <!-- Here, a view is dynamically inserted from: src\Views\schedule\ !!!Don't care about this error!!! -->
 </main>
 
 <footer>
