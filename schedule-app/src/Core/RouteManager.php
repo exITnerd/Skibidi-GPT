@@ -1,5 +1,5 @@
 <?php
-namespace App\Core;
+namespace Exitn\ScheduleApp\Core;
 
 class RouteManager {
     private $routes = [];

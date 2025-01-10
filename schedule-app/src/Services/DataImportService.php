@@ -125,7 +125,7 @@ class DataImportService
         $lesson = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($lesson) {
-            return; // Unikamy duplikatów
+            return;
         }
 
         $stmt = $this->db->prepare("INSERT INTO lessons (subject_id, teacher_id, room_id, group_id, start_time, end_time, lesson_status, status_item) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");

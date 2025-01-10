@@ -1,5 +1,5 @@
 <?php
-namespace App\Controllers;
+namespace Exitn\ScheduleApp\Controllers;
 
 class ScheduleController {
     public function index() {

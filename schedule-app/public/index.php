@@ -2,8 +2,8 @@
 require_once __DIR__ . '/../src/Core/RouteManager.php';
 require_once __DIR__ . '/../src/Controllers/ScheduleController.php';
 
-use App\Core\RouteManager;
-use App\Controllers\ScheduleController;
+use Exitn\ScheduleApp\Core\RouteManager;
+use Exitn\ScheduleApp\Controllers\ScheduleController;
 
 $routeManager = new RouteManager();
 $routeManager->addRoute('/', ScheduleController::class, 'index');

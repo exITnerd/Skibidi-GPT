@@ -7,5 +7,7 @@
             "Exitn\\ScheduleApp\\": "src/"
         }
     },
-    "require": {}
+    "require": {
+      "ext-pdo": "*"
+    }
 }
