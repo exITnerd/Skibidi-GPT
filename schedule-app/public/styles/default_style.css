@@ -115,3 +115,81 @@ header .university {
 h1 {
    color: darkred;
 }
+
+#calendar-container {
+    position: absolute;
+    top: 100px;
+    left: 20px;
+    display: none;
+    z-index: 1000;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    padding: 20px;
+    width: 400px;
+}
+
+.control-buttons {
+    margin: 10px 0;
+}
+
+.control-buttons button {
+    margin-right: 10px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+}
+
+.control-buttons button.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.month-list {
+    display: none;
+}
+
+.month-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.month-list li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.month-list li:hover {
+    background-color: #f0f0f0;
+}
+.visible {
+    display: block !important;
+}
+.semester-info {
+position: fixed;
+bottom: 20px;
+left: 20px;
+padding: 10px;
+background-color: #f8f9fa;
+border: 1px solid #ddd;
+border-radius: 8px;
+box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+font-size: 14px;
+line-height: 1.5;
+}
+#calendar-container {
+    position: absolute; /* Aby można było kontrolować jego pozycję */
+    z-index: 1000; /* Aby był na wierzchu */
+    display: none; /* Początkowo ukryty */
+}
+header>img{
+    width: 400px;
+}
+
+
+
