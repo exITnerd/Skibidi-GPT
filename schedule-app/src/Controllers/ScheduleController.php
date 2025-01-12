@@ -4,7 +4,7 @@ namespace Exitn\ScheduleApp\Controllers;
 class ScheduleController {
     public function index() {
         // View and layout paths
-        $viewPath = __DIR__ . '/../Views/schedule/one_tab.php';
+        $viewPath = __DIR__ . '/../Views/schedule/one_tab_week.php';
         $layoutPath = __DIR__ . '/../Views/layouts/default_layout.php';
 
         // View caching
