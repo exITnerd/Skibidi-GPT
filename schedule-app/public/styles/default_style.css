@@ -12,14 +12,22 @@ header {
 }
 
 .logo {
-    font-size: 50px;
+    font-size: 70px;
     font-weight: bold;
     text-align: left;
-    margin-right: 400px;
+    margin-right: 600px;
+    white-space: nowrap;
+    display: inline-block; /* Opcjonalne: ustawia element jako liniowy blok */
+    text-align: center;
+    font-family: 'Jockey One', sans-serif; /* Zastosuj czcionkę Jockey One */
 }
 
-.logo span {
-    color: green;
+.logo .plan {
+    color: #003d8f; /* Styl dla słowa PLAN */
+}
+
+.logo .zut {
+    color: #007e3f;
 }
 
 header .university {
@@ -33,20 +41,34 @@ header .university {
     top: 0;
     width: 60px;
     height: 100%;
-    background-color: #e0e0e0;
+    background-color: #B5BCDC;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-top: 20px;
+    box-shadow: 5px 0 15px rgba(45, 65, 156, 0.8);}
+
+.icon {
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
 }
 
-.sidebar .icon {
-    margin: 10px 0;
-    width: 30px;
-    height: 30px;
-    background-color: #c4c4c4;
-    border-radius: 50%;
+.icon button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
 }
+
+.icon svg {
+    fill: #2D419C;
+    width: 40px;
+    height: 40px;
+}
+
 
 .content {
     margin-left: 80px;
@@ -56,6 +78,7 @@ header .university {
 }
 
 .buttons-container {
+    margin-top: -40px;
     margin-bottom: 20px;
     display: flex;
     justify-content: flex-end;
@@ -69,15 +92,40 @@ header .university {
     height: 40px;
     box-sizing: border-box;
     font-size: 14px;
+    border-radius: 7px;
+    background-color: transparent;
+    color: #959FCD;
+    border: 1px solid #959FCD;
+    outline: none;
 }
 
+.buttons-container input::placeholder {
+    color: #959FCD;
+    font-family: inherit;
+    font-size: inherit;
+    opacity: 1;
+    text-align: center;
+}
+
+/* kolor ramki przy kliknięciu */
+.buttons-container input:focus {
+    border-color: #2D419C;
+    border: 2px solid;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    outline: none;
+    color: #2D419C;
+    font-weight: bold;
+}
 .buttons-container button {
     padding: 5px 10px;
-    border: 1px solid #c4c4c4;
-    background-color: #f9f9f9;
+    border-radius: 7px;
+    background-color: transparent;
+    color: #959FCD;
+    border: 1px solid #959FCD;
     cursor: pointer;
     font-size: 14px;
     height: 40px;
+
 }
 
 .filters {
@@ -85,14 +133,17 @@ header .university {
     gap: 10px;
     flex-wrap: wrap;
     margin-bottom: 20px;
+    margin-top: -20px;
 }
 
 .filters button {
     margin: 5px;
     padding: 5px 10px;
     font-size: 12px;
-    border: 1px solid #c4c4c4;
-    background-color: #f9f9f9;
+    background-color: transparent;
+    color: #959FCD;
+    border: 1px solid #959FCD;
+    border-radius: 7px;
     cursor: pointer;
 }
 
@@ -100,13 +151,16 @@ header .university {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
+
 }
 
 .bottom-buttons button {
     padding: 5px 10px;
     font-size: 14px;
-    border: 1px solid #c4c4c4;
-    background-color: #f9f9f9;
+    background-color: transparent;
+    color: #959FCD;
+    border: 1px solid #959FCD;
+    border-radius: 7px;
     cursor: pointer;
 }
 
@@ -139,15 +193,19 @@ h1 {
     padding: 10px 20px;
     font-size: 14px;
     cursor: pointer;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f0f0f0;
+    background-color: transparent;
+    color: #959FCD;
+    border: 1px solid #959FCD;
+    border-radius: 7px;
 }
 
 .control-buttons button.active {
-    background-color: #007bff;
-    color: white;
-    border-color: #007bff;
+    border-color: #2D419C;
+    border: 2px solid;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    outline: none;
+    color: #2D419C;
+    font-weight: bold;
 }
 
 .month-list {

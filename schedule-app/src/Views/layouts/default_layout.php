@@ -7,9 +7,14 @@
         <title>Plan ZUT</title>
         <link rel="stylesheet" href="styles/default_style.css">
         <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Jockey+One&display=swap" rel="stylesheet">
     </head>
     <body>
     <header>
+        <div class="logo" data-pl="PLAN ZUT" data-en="ZUT SCHEDULE">
+            <span class="plan">PLAN</span>
+            <span class="zut">ZUT</span>
+        </div>
         <img src="/images/logo-zut.svg" alt="Logo ZUT">
 
     </header>
@@ -35,7 +40,6 @@
     </div>
     <div class="content">
         <div class="buttons-container">
-            <div class="logo" data-pl="PLAN ZUT" data-en="ZUT SCHEDULE">PLAN <span>ZUT</span></div>
             <input type="text" placeholder="Wykładowca" data-pl="Wykładowca" data-en="Lecturer">
             <input type="text" placeholder="Sala/Budynek" data-pl="Sala/Budynek" data-en="Room/Building">
             <input type="text" placeholder="Przedmiot" data-pl="Przedmiot" data-en="Subject">
@@ -46,7 +50,7 @@
 
         <div class="filters">
             <button data-pl="Laboratorium" data-en="Laboratory">Laboratorium</button>
-            <button data-pl="Audytorium" data-en="Auditorium">Audytorium</button> <br>
+            <button data-pl="Audytorium" data-en="Auditorium">Audytorium</button>
             <button data-pl="Wykład" data-en="Lecture">Wykład</button>
             <button data-pl="Lektorat" data-en="Language Class">Lektorat</button>
             <button data-pl="Projekt" data-en="Project">Projekt</button>
@@ -55,8 +59,8 @@
         <div class="bottom-buttons">
             <button id="date-button">Select Date</button>
             <div class="control-buttons">
-                <button id="day-view" class="active" data-pl="Dzień" data-en="Day">Dzień</button>
-                <button id="week-view" data-pl="Tydzień" data-en="Week">Tydzień</button>
+                <button id="day-view" data-pl="Dzień" data-en="Day">Dzień</button>
+                <button id="week-view" class="active" data-pl="Tydzień" data-en="Week">Tydzień</button>
                 <button id="month-view" data-pl="Miesiąc" data-en="Month">Miesiąc</button>
                 <button id="semester-view" data-pl="Semestr" data-en="Semester">Semestr</button>
             </div>
