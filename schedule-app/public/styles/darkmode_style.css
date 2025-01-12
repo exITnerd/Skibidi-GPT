@@ -1,0 +1,273 @@
+html, body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: black; !important;
+    height: 100%;
+
+}
+
+
+header {
+    background-color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.logo {
+    font-size: 70px;
+    font-weight: bold;
+    text-align: left;
+    margin-right: 600px;
+    white-space: nowrap;
+    display: inline-block; /* Opcjonalne: ustawia element jako liniowy blok */
+    text-align: center;
+    font-family: 'Jockey One', sans-serif; /* Zastosuj czcionkę Jockey One */
+}
+
+.logo .plan {
+    color: #003d8f; /* Styl dla słowa PLAN */
+}
+
+.logo .zut {
+    color: #007e3f;
+}
+
+header .university {
+    font-size: 14px;
+    text-align: right;
+}
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 60px;
+    height: 100%;
+    background-color: #B5BCDC;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    box-shadow: 5px 0 15px rgba(45, 65, 156, 0.8);}
+
+.icon {
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+}
+
+.icon button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.icon svg {
+    fill: #2D419C;
+    width: 40px;
+    height: 40px;
+}
+
+
+.content {
+    margin-left: 80px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.buttons-container {
+    margin-top: -40px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    height: 60px;
+}
+
+.buttons-container input {
+    width: 120px;
+    height: 40px;
+    box-sizing: border-box;
+    font-size: 14px;
+    border-radius: 7px;
+    background-color: transparent;
+    color: #959FCD;
+    border: 1px solid #959FCD;
+    outline: none;
+}
+
+.buttons-container input::placeholder {
+    color: #959FCD;
+    font-family: inherit;
+    font-size: inherit;
+    opacity: 1;
+    text-align: center;
+}
+
+/* kolor ramki przy kliknięciu */
+.buttons-container input:focus {
+    border-color: #2D419C;
+    border: 2px solid;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    outline: none;
+    color: #2D419C;
+    font-weight: bold;
+}
+.buttons-container button {
+    padding: 5px 10px;
+    border-radius: 7px;
+    background-color: transparent;
+    color: #959FCD;
+    border: 1px solid #959FCD;
+    cursor: pointer;
+    font-size: 14px;
+    height: 40px;
+
+}
+
+.filters {
+    /* display: flex; */
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    margin-top: -20px;
+}
+
+.filters button {
+    margin: 5px;
+    padding: 5px 10px;
+    font-size: 12px;
+    background-color: transparent;
+    color: #959FCD;
+    border: 1px solid #959FCD;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.bottom-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+}
+
+.bottom-buttons button {
+    padding: 5px 10px;
+    font-size: 14px;
+    background-color: transparent;
+    color: #959FCD;
+    border: 1px solid #959FCD;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+/* CSS styles test on a dynamic view object */
+
+h1 {
+    color: darkred;
+}
+
+#calendar-container {
+    position: absolute;
+    z-index: 1000;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    width: 300px; /* Ustaw stałą szerokość */
+    height: 400px; /* Stała wysokość */
+    overflow: hidden; /* Ukrycie nadmiarowej zawartości */
+}
+
+#calendar {
+    width: 100%;
+    height: 300px; /* Określ dokładną wysokość */
+    box-sizing: border-box; /* Upewnij się, że padding i border nie powiększają elementu */
+}
+
+
+.control-buttons {
+    margin: 10px 0;
+}
+
+.control-buttons button {
+    margin-right: 10px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: transparent;
+    color: #959FCD;
+    border: 1px solid #959FCD;
+    border-radius: 7px;
+}
+
+.control-buttons button.active {
+    border-color: #2D419C;
+    border: 2px solid;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    outline: none;
+    color: #2D419C;
+    font-weight: bold;
+}
+
+.month-list {
+    display: none;
+}
+
+.month-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.month-list li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.month-list li:hover {
+    background-color: #f0f0f0;
+}
+.visible {
+    display: block !important;
+}
+.semester-info {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+header>img{
+    width: 400px;
+}
+.fc {
+    max-width: 100%; /* Dopasowanie do kontenera */
+    box-sizing: border-box;
+}
+
+.fc .fc-toolbar {
+    display: flex;
+    justify-content: space-between; /* Ustawienie narzędzi w jednej linii */
+    gap: 10px;
+}
+
+.fc .fc-scrollgrid {
+    overflow: hidden; /* Ukryj przewijanie w obrębie kalendarza */
+}
+
+
+
+

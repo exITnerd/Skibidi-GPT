@@ -11,10 +11,11 @@
     </head>
     <body>
     <header>
-        <div class="logo" data-pl="PLAN ZUT" data-en="ZUT SCHEDULE">
-            <span class="plan">PLAN</span>
-            <span class="zut">ZUT</span>
+        <div class="logo">
+            <span class="plan" data-pl="PLAN" data-en="SCHEDULE">PLAN</span>
+            <span class="zut" data-pl="ZUT" data-en="SCHEDULE">ZUT</span>
         </div>
+
         <img src="/images/logo-zut.svg" alt="Logo ZUT">
 
     </header>
@@ -148,6 +149,8 @@
             // Initialize FullCalendar
             const calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
+                contentHeight: 400, // Wysokość widoku
+                aspectRatio: 24,   // Proporcje szerokości do wysokości
                 dateClick: function (info) {
                     if (viewMode === 'day') {
                         dateButton.textContent = info.dateStr;
@@ -162,58 +165,41 @@
                     }
                 }
             });
-                calendar.render();
+            calendar.render();
 
             // Set today's date on the button
             const today = new Date().toISOString().split('T')[0];
             dateButton.textContent = today;
 
             dateButton.addEventListener('click', function () {
+                const isCalendarVisible = calendarContainer.classList.contains('visible');
 
-                if (viewMode === 'month') {
-                    const isMonthListVisible = monthList.classList.contains('visible');
+                if (!isCalendarVisible) {
+                    // Pobranie pozycji przycisku
+                    const rect = dateButton.getBoundingClientRect();
 
+                    // Ustawienie pozycji kalendarza
+                    calendarContainer.style.top = `${rect.bottom + window.scrollY}px`;
+                    calendarContainer.style.left = `${rect.left + window.scrollX}px`;
 
-                    if (!isMonthListVisible) {
-                        // Otwórz listę miesięcy
-                        monthList.classList.add('visible');
-                        calendarContainer.classList.remove('visible');
+                    // Ustaw maksymalną szerokość kalendarza
+                    calendarContainer.style.maxWidth = '300px';
 
-                    } else {
-                        // Zamknij listę miesięcy
-                        monthList.classList.remove('visible');
+                    // Wyświetlenie kalendarza
+                    calendarContainer.classList.add('visible');
+                    calendarContainer.style.display = 'block';
 
-                    }
+                    // Wymuszenie odświeżenia widoku kalendarza
+                    calendar.updateSize();
                 } else {
-                    const isCalendarVisible = calendarContainer.classList.contains('visible');
-
-
-                    if (!isCalendarVisible) {
-                        // Otwórz kalendarz
-                        calendarContainer.classList.add('visible');
-                        monthList.classList.remove('visible');
-
-                    } else {
-                        // Zamknij kalendarz
-                        calendarContainer.classList.remove('visible');
-
-                    }
+                    // Ukrycie kalendarza
+                    calendarContainer.classList.remove('visible');
+                    calendarContainer.style.display = 'none';
                 }
             });
 
-            document.addEventListener('click', function (event) {
-                const isControlledElement =
-                    calendarContainer.contains(event.target) ||
-                    monthList.contains(event.target) ||
-                    event.target === dateButton ||
-                    event.target === dayViewButton ||
-                    event.target === weekViewButton ||
-                    event.target === monthViewButton;
 
 
-            });
-
-            // Handle view mode switching
             dayViewButton.addEventListener('click', function () {
                 viewMode = 'day';
                 calendarContainer.style.display = 'none';
@@ -235,71 +221,43 @@
             });
 
             monthViewButton.addEventListener('click', function () {
-
-
-                // Sprawdź, czy lista miesięcy jest widoczna
                 const isMonthListVisible = monthList.classList.contains('visible');
 
-                // Przełącz widoczność listy miesięcy
                 if (!isMonthListVisible) {
-                    monthList.classList.add('visible'); // Pokaż listę miesięcy
-                    calendarContainer.classList.remove('visible'); // Ukryj kalendarz (jeśli widoczny)
-
+                    monthList.classList.add('visible');
+                    calendarContainer.classList.remove('visible');
                 } else {
-                    monthList.classList.remove('visible'); // Ukryj listę miesięcy
+                    monthList.classList.remove('visible');
                 }
 
-                // Zarządzaj klasami aktywności przycisków
                 dayViewButton.classList.remove('active');
                 weekViewButton.classList.remove('active');
                 monthViewButton.classList.add('active');
                 semesterViewButton.classList.remove('active');
-
             });
-            semesterViewButton.addEventListener('click', function () {
-                viewMode = 'semester'; // Ustaw tryb widoku na semestr
-                calendarContainer.style.display = 'none'; // Ukryj kalendarz
-                monthList.style.display = 'none'; // Ukryj listę miesięcy
 
-                // Podświetlenie aktywnego przycisku
+            semesterViewButton.addEventListener('click', function () {
+                viewMode = 'semester';
+                calendarContainer.style.display = 'none';
+                monthList.style.display = 'none';
+
                 dayViewButton.classList.remove('active');
                 weekViewButton.classList.remove('active');
                 monthViewButton.classList.remove('active');
                 semesterViewButton.classList.add('active');
             });
 
-
-
-
             monthList.addEventListener('click', function (event) {
                 if (event.target.tagName === 'LI') {
                     const selectedMonth = event.target.getAttribute('data-month');
                     const year = new Date().getFullYear();
 
-                    // Zaktualizuj tekst na przycisku "Select Date"
                     dateButton.textContent = `${year}-${selectedMonth}`;
-
-                    // Ukryj listę miesięcy po wyborze
                     monthList.classList.remove('visible');
                 }
             });
-
-
         });
-        document.getElementById('date-button').addEventListener('click', function () {
-            const button = document.getElementById('date-button');
-            const calendarContainer = document.getElementById('calendar-container');
 
-            // Pobranie pozycji przycisku
-            const rect = button.getBoundingClientRect();
-
-            // Ustawienie pozycji kalendarza
-            calendarContainer.style.top = `${rect.bottom + window.scrollY}px`; // Dolna krawędź przycisku
-            calendarContainer.style.left = `${rect.left + window.scrollX}px`;  // Lewa krawędź przycisku
-
-            // Przełączanie widoczności
-            calendarContainer.style.display = calendarContainer.style.display === 'block' ? 'none' : 'block';
-        });
 
     </script>
 
