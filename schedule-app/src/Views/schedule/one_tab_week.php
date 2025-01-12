@@ -36,7 +36,7 @@
         text-align: left;
         text-transform: uppercase;
         font-size: 10px;
-        padding-top: 50px;
+        padding-top: 10px;
         padding-bottom: 1px;
         padding-left: 1px;
         padding-right: 50px;
