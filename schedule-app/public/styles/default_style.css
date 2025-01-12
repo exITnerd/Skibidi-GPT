@@ -238,11 +238,12 @@ position: fixed;
 bottom: 20px;
 left: 20px;
 padding: 10px;
-background-color: #f8f9fa;
-border: 1px solid #ddd;
-border-radius: 8px;
-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-font-size: 14px;
+background-color: #ffffff;
+    border: 1px solid #959FCD;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #959FCD;
+    font-size: 14px;
 line-height: 1.5;
 }
 
@@ -264,6 +265,13 @@ header>img{
     overflow: hidden; /* Ukryj przewijanie w obrębie kalendarza */
 }
 
+footer {
+    text-align: center; /* Wyśrodkowanie tekstu w stopce */
+    font-size: 14px; /* Rozmiar czcionki */
+    color: #959FCD; /* Kolor czcionki */
+    padding: 10px 0; /* Odstępy wewnętrzne w pionie */
+    margin-top: 20px; /* Odstęp od treści powyżej */
+}
 
 
 
