@@ -221,24 +221,6 @@ h1 {
    color: darkred;
 }
 
-#calendar-container {
-    position: absolute;
-    z-index: 1000;
-    background-color: white;
-    border: 1px solid #ccc;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    width: 300px; /* Ustaw stałą szerokość */
-    height: 400px; /* Stała wysokość */
-    overflow: hidden; /* Ukrycie nadmiarowej zawartości */
-}
-
-#calendar {
-    width: 100%;
-    height: 300px; /* Określ dokładną wysokość */
-    box-sizing: border-box; /* Upewnij się, że padding i border nie powiększają elementu */
-}
-
 
 .control-buttons {
     margin: 10px 0;

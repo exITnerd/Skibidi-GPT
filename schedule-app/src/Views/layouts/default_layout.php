@@ -79,20 +79,6 @@
             <div id="calendar-container">
                 <div id="calendar"></div>
                 <div class="month-list" id="month-list" style="display: none;">
-                    <ul>
-                        <li data-month="01">Styczeń</li>
-                        <li data-month="02">Luty</li>
-                        <li data-month="03">Marzec</li>
-                        <li data-month="04">Kwiecień</li>
-                        <li data-month="05">Maj</li>
-                        <li data-month="06">Czerwiec</li>
-                        <li data-month="07">Lipiec</li>
-                        <li data-month="08">Sierpień</li>
-                        <li data-month="09">Wrzesień</li>
-                        <li data-month="10">Październik</li>
-                        <li data-month="11">Listopad</li>
-                        <li data-month="12">Grudzień</li>
-                    </ul>
                 </div>
 
             </div>
@@ -152,58 +138,9 @@
 
             let viewMode = 'day'; // Default view mode
 
-            // Initialize FullCalendar
-            const calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                contentHeight: 400, // Wysokość widoku
-                aspectRatio: 24,   // Proporcje szerokości do wysokości
-                dateClick: function (info) {
-                    if (viewMode === 'day') {
-                        dateButton.textContent = info.dateStr;
-                        calendarContainer.style.display = 'none';
-                    } else if (viewMode === 'week') {
-                        const startOfWeek = new Date(info.date);
-                        startOfWeek.setDate(info.date.getDate() - info.date.getDay());
-                        const endOfWeek = new Date(startOfWeek);
-                        endOfWeek.setDate(startOfWeek.getDate() + 6);
-                        dateButton.textContent = `${startOfWeek.toISOString().split('T')[0]} - ${endOfWeek.toISOString().split('T')[0]}`;
-                        calendarContainer.style.display = 'none';
-                    }
-                }
-            });
-            calendar.render();
-
             // Set today's date on the button
             const today = new Date().toISOString().split('T')[0];
             dateButton.textContent = today;
-
-            dateButton.addEventListener('click', function () {
-                const isCalendarVisible = calendarContainer.classList.contains('visible');
-
-                if (!isCalendarVisible) {
-                    // Pobranie pozycji przycisku
-                    const rect = dateButton.getBoundingClientRect();
-
-                    // Ustawienie pozycji kalendarza
-                    calendarContainer.style.top = `${rect.bottom + window.scrollY}px`;
-                    calendarContainer.style.left = `${rect.left + window.scrollX}px`;
-
-                    // Ustaw maksymalną szerokość kalendarza
-                    calendarContainer.style.maxWidth = '300px';
-
-                    // Wyświetlenie kalendarza
-                    calendarContainer.classList.add('visible');
-                    calendarContainer.style.display = 'block';
-
-                    // Wymuszenie odświeżenia widoku kalendarza
-                    calendar.updateSize();
-                } else {
-                    // Ukrycie kalendarza
-                    calendarContainer.classList.remove('visible');
-                    calendarContainer.style.display = 'none';
-                }
-            });
-
 
 
             dayViewButton.addEventListener('click', function () {
