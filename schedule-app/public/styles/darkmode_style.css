@@ -2,14 +2,12 @@ html, body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: black; !important;
+    background-color: black !important;
     height: 100%;
-
 }
 
-
 header {
-    background-color: white;
+    background-color: dimgray;
     padding: 10px 20px;
     display: flex;
     justify-content: flex-end;
