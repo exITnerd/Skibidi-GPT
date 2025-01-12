@@ -111,7 +111,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 Plan Zajęć. Wszystkie prawa zastrzeżone.</p>
+        <p data-pl="&copy; 2025 Plan Zajęć. Wszystkie prawa zastrzeżone." data-en="&copy; 2025 Schedule Plan. All rights reserved.">&copy; 2025 Plan Zajęć. Wszystkie prawa zastrzeżone.</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
