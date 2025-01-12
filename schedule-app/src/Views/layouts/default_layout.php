@@ -14,7 +14,7 @@
     <header>
         <div class="logo">
             <span class="plan" data-pl="PLAN" data-en="SCHEDULE">PLAN</span>
-            <span class="zut" data-pl="ZUT" data-en="SCHEDULE">ZUT</span>
+            <span class="zut" data-pl="ZUT" data-en="ZUT">ZUT</span>
         </div>
 
         <img src="/images/logo-zut.svg" alt="Logo ZUT">
