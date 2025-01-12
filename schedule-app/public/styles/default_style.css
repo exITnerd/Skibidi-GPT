@@ -61,6 +61,7 @@ header .university {
     border: none;
     padding: 0;
     cursor: pointer;
+    position: relative;
 }
 
 .icon svg {
@@ -69,6 +70,26 @@ header .university {
     height: 40px;
 }
 
+.icon button::after {
+    content: attr(data-tooltip); /* Pobiera wartość z `data-tooltip` */
+    position: absolute;
+    top: 50%; /* Wyrównanie tooltipa w pionie względem środka przycisku */
+    left: 110%;
+    transform: translateY(-50%); /* Centrowanie tooltipa w pionie */
+    background-color: #2D419C;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 7px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+.icon button:hover::after {
+    opacity: 1; /* Wyświetla tooltip po najechaniu */
+}
 
 .content {
     margin-left: 80px;
@@ -174,7 +195,7 @@ header .university {
 }
 
 .filters button[data-pl="Projekt"].active {
-    background-color: #D6B3FF; 
+    background-color: #D6B3FF;
 }
 
 .bottom-buttons {
