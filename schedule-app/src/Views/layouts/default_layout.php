@@ -258,6 +258,12 @@
             });
         });
 
+        document.querySelectorAll('.filters button').forEach(button => {
+            button.addEventListener('click', () => {
+                // Przełączanie klasy 'active' na klikniętym przycisku
+                button.classList.toggle('active');
+            });
+        });
 
     </script>
 

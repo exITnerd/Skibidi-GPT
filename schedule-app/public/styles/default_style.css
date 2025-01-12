@@ -145,6 +145,36 @@ header .university {
     border: 1px solid #959FCD;
     border-radius: 7px;
     cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filters button.active {
+    color: #2D419C;
+    font-weight: bold;
+    border-color: #2D419C;
+    border: 2px solid;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Kolory dla każdego przycisku po włączeniu */
+.filters button[data-pl="Laboratorium"].active {
+    background-color: #B3E6C9;
+}
+
+.filters button[data-pl="Audytorium"].active {
+    background-color: #FFD1A6;
+}
+
+.filters button[data-pl="Wykład"].active {
+    background-color: #A6D8FF;
+}
+
+.filters button[data-pl="Lektorat"].active {
+    background-color: #FFF4B3;
+}
+
+.filters button[data-pl="Projekt"].active {
+    background-color: #D6B3FF; 
 }
 
 .bottom-buttons {
