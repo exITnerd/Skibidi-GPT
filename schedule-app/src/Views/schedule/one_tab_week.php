@@ -4,94 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plan Tygodniowy</title>
+    <link rel="stylesheet" type="text/css" href="/styles/schedule-styles/one_tab_week_style.css">
 </head>
 <body>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #ffffff;
-        margin: 0;
-        padding: 0;
-    }
-    table {
-        border-collapse: collapse;
-        width: 100%;
-        max-width: 1500px;
-        margin-right: 40px;
-        margin-left: -40px;
-        background-color: #f0f2f7;
-        border: 1px solid #ffffff;
-        table-layout: fixed;
-    }
-    th, td {
-        border: 5px solid #ffffff;
-        padding: 10px;
-        width: 100px;
-        height: 70px;
-        vertical-align: top;
-    }
-    th {
-        background-color: #ffffff;
-        font-weight: bold;
-        color: #000000;
-        text-align: left;
-        text-transform: uppercase;
-        font-size: 10px;
-        padding-top: 10px;
-        padding-bottom: 1px;
-        padding-left: 1px;
-        padding-right: 50px;
-    }
-
-    th .date {
-        font-size: 10px; /* Rozmiar tekstu dla daty */
-        text-transform: none; /* Wyłączenie drukowanych liter dla daty */
-        color: #959FCD; /* Inny kolor dla daty */
-    }
-
-    .row-header {
-        background-color: #ffffff;
-        font-weight: bold;
-        color: #959FCD;
-        text-align: right;
-        font-size: 10px;
-        padding-top: 50px;
-        padding-bottom: 1px;
-        padding-left: 50px;
-        padding-right: 1px;
-    }
-    .box {
-        width: 300px;
-        margin: 20px 40px 0 auto;
-        padding: 15px;
-        border: 1px solid #959FCD;
-        border-radius: 10px;
-        background-color: transparent;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        text-align: center;
-        color: #959FCD;
-    }
-    .subject {
-        font-weight: bold;
-        color: #2D419C;
-        font-size: 12px;
-    }
-    .tutor {
-        font-size: 11px;
-        color: #2D419C;
-    }
-    .type {
-        font-size: 10px;
-        color: #ffffff;
-        border-radius: 5px;
-        padding: 3px 5px;
-        display: inline-block;
-    }
-    .lab { background-color: #B3E6C9; }
-    .wyk { background-color: #A6D8FF; }
-    .lek { background-color: #FFF4B3; }
-    .pro { background-color: #D6B3FF; }
-</style>
 <table>
     <tr>
         <th></th>

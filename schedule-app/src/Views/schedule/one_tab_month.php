@@ -4,64 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plan Miesięczny</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #ffffff;
-            margin: 0;
-            padding: 0;
-        }
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            max-width: 1200px;
-            margin: 20px auto;
-            background-color: #f0f2f7;
-            border: 1px solid #ffffff;
-            table-layout: fixed;
-        }
-        th, td {
-            border: 5px solid #ffffff;
-            padding: 10px;
-            width: 14.28%; /* 7 dni tygodnia */
-            height: 100px;
-            text-align: center;
-        }
-        th {
-            background-color: #ffffff;
-            font-weight: bold;
-            color: #000000;
-            text-transform: uppercase;
-            font-size: 12px;
-        }
-        td {
-            background-color: #ffffff;
-            color: #959FCD;
-            font-size: 14px;
-            vertical-align: top;
-            padding: 5px;
-        }
-        .header-row th {
-            font-size: 16px;
-            color: #959FCD;
-            text-transform: capitalize;
-        }
-        .day {
-            font-weight: bold;
-            color: #000000;
-        }
-        .box {
-            width: 300px;
-            margin: 20px auto;
-            padding: 15px;
-            border: 1px solid #959FCD;
-            border-radius: 10px;
-            background-color: transparent;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            color: #959FCD;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/styles/schedule-styles/one_tab_month_style.css">
 </head>
 <body>
 <table>
