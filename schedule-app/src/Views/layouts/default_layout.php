@@ -66,14 +66,27 @@
         <div class="bottom-buttons">
             <button id="date-button">Select Date</button>
             <div class="control-buttons">
-                <button id="day-view" data-pl="Dzień" data-en="Day">Dzień</button>
-                <button id="week-view" class="active" data-pl="Tydzień" data-en="Week">Tydzień</button>
-                <button id="month-view" data-pl="Miesiąc" data-en="Month">Miesiąc</button>
-                <button id="semester-view" data-pl="Semestr" data-en="Semester">Semestr</button>
+                <?php $viewType = $_GET['view'] ?? 'day'; ?>
+
+                <button id="day-view" class="<?= $viewType === 'day' ? 'active' : '' ?>"
+                        data-pl="Dzień" data-en="Day"
+                        onclick="window.location.href='?view=day'">Dzień</button>
+
+                <button id="week-view" class="<?= $viewType === 'week' ? 'active' : '' ?>"
+                        data-pl="Tydzień" data-en="Week"
+                        onclick="window.location.href='?view=week'">Tydzień</button>
+
+                <button id="month-view" class="<?= $viewType === 'month' ? 'active' : '' ?>"
+                        data-pl="Miesiąc" data-en="Month"
+                        onclick="window.location.href='?view=month'">Miesiąc</button>
+
+                <button id="semester-view" class="<?= $viewType === 'semester' ? 'active' : '' ?>"
+                        data-pl="Semestr" data-en="Semester"
+                        onclick="window.location.href='?view=semester'">Semestr</button>
             </div>
 
 
-            <button><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+        <button><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
                 </svg></button>
             <div id="calendar-container">
