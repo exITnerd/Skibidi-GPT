@@ -28,6 +28,7 @@
         padding: 10px;
         width: 100px;
         height: 70px;
+        vertical-align: top;
     }
     th {
         background-color: #ffffff;
@@ -70,65 +71,85 @@
         text-align: center;
         color: #959FCD;
     }
+    .subject {
+        font-weight: bold;
+        color: #2D419C;
+        font-size: 12px;
+    }
+    .tutor {
+        font-size: 11px;
+        color: #2D419C;
+    }
+    .type {
+        font-size: 10px;
+        color: #ffffff;
+        border-radius: 5px;
+        padding: 3px 5px;
+        display: inline-block;
+    }
+    .lab { background-color: #B3E6C9; }
+    .wyk { background-color: #A6D8FF; }
+    .lek { background-color: #FFF4B3; }
+    .pro { background-color: #D6B3FF; }
 </style>
 <table>
     <tr>
         <th></th>
         <th>
             poniedziałek
-            <span class="date">01.01.2025</span>
+            <span class="date">13.01.2025</span>
         </th>
         <th>
             wtorek
-            <span class="date">02.01.2025</span>
+            <span class="date">14.01.2025</span>
         </th>
         <th>
             środa
-            <span class="date">03.01.2025</span>
+            <span class="date">15.01.2025</span>
         </th>
         <th>
             czwartek
-            <span class="date">04.01.2025</span>
+            <span class="date">16.01.2025</span>
         </th>
         <th>
             piątek
-            <span class="date">05.01.2025</span>
+            <span class="date">17.01.2025</span>
         </th>
         <th>
             sobota
-            <span class="date">06.01.2025</span>
+            <span class="date">18.01.2025</span>
         </th>
         <th>
             niedziela
-            <span class="date">07.01.2025</span>
+            <span class="date">19.01.2025</span>
         </th>
     </tr>
     <tr>
         <td class="row-header">8:15</td>
+        <td><div class="subject">Zarządzanie informacją 2</div><div class="tutor">dr hab. inż. Przemysław Korytkowski</div><div class="type lab">laboratorium</div></td>
+        <td><div class="subject">Język angielski 2</div><div class="tutor">mgr Robert Bomba</div><div class="type lek">lektorat</div></td>
+        <td><div class="subject">Inżynierski projekt zespołowy 1</div><div class="tutor">dr inż. Michał Twardochleb</div><div class="type pro">projekt</div></td>
         <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td><div class="subject">Podstawy ochrony informacji</div><div class="tutor">dr inż. Jerzy Pejaś</div><div class="type wyk">wykład</div></td>
         <td></td>
         <td></td>
     </tr>
     <tr>
         <td class="row-header">10:15</td>
+        <td><div class="subject">Sztuczna inteligencja</div><div class="tutor">dr inż. Jacek Klimaszewski</div><div class="type lab">laboratorium</div></td>
+        <td><div class="subject">Podstawy ochrony informacji</div><div class="tutor">dr inż. Luiza Fabisiak</div><div class="type lab">laboratorium</div></td>
+        <td><div class="subject">Algorytmy 2</div><div class="tutor">dr hab. inż. Przemysław Kieśk</div><div class="type wyk">wykład</div></td>
         <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td><div class="subject">Sztuczna inteligencja</div><div class="tutor">dr inż. Joanna Kołodziejczyk</div><div class="type wyk">wykład</div></td>
         <td></td>
         <td></td>
     </tr>
     <tr>
         <td class="row-header">12:15</td>
+        <td><div class="subject">Sieci komputerowe</div><div class="tutor">dr inż. Grzegorz Śliwiński</div><div class="type lab">laboratorium</div></td>
+        <td><div class="subject">Aplikacje internetowe 1</div><div class="tutor">dr inż. Artur Karczmarczyk</div><div class="type wyk">wykład</div></td>
         <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td><div class="subject">Zarządzanie informacją 2</div><div class="tutor">dr hab. inż. Przemysław Korytkowski</div><div class="type wyk">wykład</div></td>
         <td></td>
         <td></td>
         <td></td>
@@ -136,7 +157,7 @@
     <tr>
         <td class="row-header">14:15</td>
         <td></td>
-        <td></td>
+        <td><div class="subject">Aplikacje internetowe 1</div><div class="tutor">mgr Aleksandra Karczmarczyk</div><div class="type lab">laboratorium</div></td>
         <td></td>
         <td></td>
         <td></td>
@@ -145,9 +166,9 @@
     </tr>
     <tr>
         <td class="row-header">16:15</td>
+        <td><div class="subject">Sieci komputerowe</div><div class="tutor">dr inż. Grzegorz Śliwiński</div><div class="type wyk">wykład</div></td>
         <td></td>
-        <td></td>
-        <td></td>
+        <td><div class="subject">Wychowanie fizyczne 1</div><div class="tutor">mgr Tomasz Flika</div><div class="type aud">audycyjne</div></td>
         <td></td>
         <td></td>
         <td></td>
@@ -157,7 +178,7 @@
         <td class="row-header">18:15</td>
         <td></td>
         <td></td>
-        <td></td>
+        <td><div class="subject">Podstawy ochrony informacji</div><div class="tutor">dr inż. Jerzy Pejaś</div><div class="type wyk">wykład</div></td>
         <td></td>
         <td></td>
         <td></td>
