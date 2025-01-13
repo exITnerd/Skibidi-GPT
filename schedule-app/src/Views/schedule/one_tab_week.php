@@ -83,7 +83,7 @@
         <td class="row-header">16:15</td>
         <td><div class="subject">Sieci komputerowe</div><div class="tutor">dr inż. Grzegorz Śliwiński</div><div class="type wyk">wykład</div></td>
         <td></td>
-        <td><div class="subject">Wychowanie fizyczne 1</div><div class="tutor">mgr Tomasz Flika</div><div class="type aud">audycyjne</div></td>
+        <td><div class="subject">Wychowanie fizyczne 1</div><div class="tutor">mgr Tomasz Flika</div><div class="type aud">audytoryjne</div></td>
         <td></td>
         <td></td>
         <td></td>

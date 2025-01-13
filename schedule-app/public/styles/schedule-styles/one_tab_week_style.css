@@ -73,12 +73,15 @@ th .date {
 }
 .type {
     font-size: 10px;
-    color: #ffffff;
-    border-radius: 5px;
+    color: #2D419C;
+    border-radius: 7px;
     padding: 3px 5px;
     display: inline-block;
+    border: 1px solid #2D419C;
+
 }
 .lab { background-color: #B3E6C9; }
 .wyk { background-color: #A6D8FF; }
 .lek { background-color: #FFF4B3; }
 .pro { background-color: #D6B3FF; }
+.aud { background-color: #FFD1A6; }
