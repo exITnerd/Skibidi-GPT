@@ -50,7 +50,7 @@
             <input type="text" placeholder="Sala/Budynek" data-pl="Sala/Budynek" data-en="Room/Building">
             <input type="text" placeholder="Przedmiot" data-pl="Przedmiot" data-en="Subject">
             <input type="text" placeholder="Grupa" data-pl="Grupa" data-en="Group">
-            <input type="text" placeholder="Numer Albumu" data-pl="Numer Albumu" data-en="Album Number">
+            <input id="index-number" type="text" placeholder="Numer Albumu" data-pl="Numer Albumu" data-en="Album Number">
             <button data-pl="Wyczyść filtry" data-en="Clear filters">Wyczyść filtry</button>
         </div>
 
@@ -95,7 +95,7 @@
             </div>
 
 
-        <button><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+        <button id="search"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
                 </svg></button>
 
@@ -270,6 +270,59 @@
         });
     </script>
 
+    <script>
+        document.getElementById('search').addEventListener('click', function () {
+
+            const indexNumber = document.getElementById('index-number').value.trim();
+            if (!indexNumber) {
+                alert('Wprowadź numer albumu.');
+                return;
+            }
+
+            const currentDate = new Date();
+            const startDate = currentDate.toISOString().split('T')[0];
+            const endDate = new Date(currentDate.getTime() + 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+
+            const url = `http://localhost:8000/schedule-proxy.php?number=${indexNumber}&start=${startDate}&end=${endDate}`;
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Błąd podczas pobierania danych.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Pobrane dane:', data);
+
+                    const calendarContainer = document.getElementById('calendar');
+                    calendarContainer.innerHTML = '';
+                    if (data.length === 0 || data[1].length === 0) {
+                        calendarContainer.innerHTML = '<p>Brak zajęć w podanym okresie.</p>';
+                        return;
+                    }
+
+                    data.forEach((item, index) => {
+                        if (index === 0) return;
+
+                        const lessonDiv = document.createElement('div');
+                        lessonDiv.classList.add('lesson');
+                        lessonDiv.innerHTML = `
+                        <h3>${item.title}</h3>
+                        <p>${item.description}</p>
+                        <p><strong>Prowadzący:</strong> ${item.worker_title}</p>
+                        <p><strong>Sala:</strong> ${item.room}</p>
+                        <p><strong>Data i godzina:</strong> ${item.start} - ${item.end}</p>
+                    `;
+                        calendarContainer.appendChild(lessonDiv);
+                    });
+                })
+                .catch(error => {
+                    console.error('Wystąpił błąd:', error);
+                    //alert('Nie udało się pobrać danych. Spróbuj ponownie później.');
+                });
+        });
+    </script>
 
     </body>
     </html>

@@ -7,7 +7,6 @@ use Exitn\ScheduleApp\Controllers\ScheduleController;
 
 $routeManager = new RouteManager();
 $routeManager->addRoute('/', ScheduleController::class, 'index');
-$routeManager->addRoute('/search', ScheduleController::class, 'search');
 
 try {
     $routeManager->dispatch($_SERVER['REQUEST_URI']);
