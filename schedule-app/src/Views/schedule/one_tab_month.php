@@ -17,10 +17,9 @@
             max-width: 1200px;
             margin: 20px auto;
             background-color: #f0f2f7;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         th, td {
-            border: 1px solid #959FCD;
+            border: 5px solid #ffffff;
             padding: 10px;
             width: 14%;
             height: 150px;
@@ -28,15 +27,23 @@
             position: relative;
         }
         th {
-            background-color: #959FCD;
-            color: #ffffff;
-            text-align: center;
-            font-size: 14px;
+            background-color: #ffffff;
+            color: #959FCD;
             text-transform: uppercase;
+            vertical-align: bottom;
+            height: 20px;
+            text-align: left;
+            font-size: 14px;
+            padding-top: 10px;
+            padding-bottom: 1px;
+            padding-left: 1px;
+            padding-right: 50px;
+            font-weight: normal;
+
         }
         .day {
             font-weight: bold;
-            font-size: 16px;
+            font-size: 14px;
             position: absolute;
             top: 5px;
             left: 5px;
