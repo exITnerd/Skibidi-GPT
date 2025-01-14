@@ -146,10 +146,11 @@
             const dayViewButton = document.getElementById('day-view');
             const weekViewButton = document.getElementById('week-view');
             const monthViewButton = document.getElementById('month-view');
+            const semesterViewButton = document.getElementById('semester-view');
             const leftArrow = document.getElementById('left_arrow');
             const rightArrow = document.getElementById('right_arrow');
 
-            let currentView = 'day'; // default view
+            let currentView = localStorage.getItem('currentView') || 'day'; // default view
             let currentDate = new Date();
 
             function formatDate(date) {
@@ -168,40 +169,52 @@
                 return `${formatDate(monday)} - ${formatDate(sunday)}`;
             }
 
+            function formatMonthAndYear(date) {
+                const month = date.toLocaleString('default', { month: 'long' });
+                const year = date.getFullYear();
+                return `${month} ${year}`;
+            }
+
             function updateDateButton() {
                 if (currentView === 'day') {
                     dateButton.textContent = formatDate(currentDate);
                 } else if (currentView === 'week') {
                     dateButton.textContent = getWeekRange(currentDate);
                 } else if (currentView === 'month') {
-                    dateButton.textContent = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}`;
+                    dateButton.textContent = formatMonthAndYear(currentDate);
+                } else if (currentView === 'semester') {
+                    dateButton.textContent = 'Semester View'; // Placeholder text for semester view
                 }
             }
 
-            dayViewButton.addEventListener('click', function () {
-                console.log('Day view selected');
-                currentView = 'day';
-                dayViewButton.classList.add('active');
-                weekViewButton.classList.remove('active');
-                monthViewButton.classList.remove('active');
+            function updateViewButtons() {
+                dayViewButton.classList.toggle('active', currentView === 'day');
+                weekViewButton.classList.toggle('active', currentView === 'week');
+                monthViewButton.classList.toggle('active', currentView === 'month');
+                semesterViewButton.classList.toggle('active', currentView === 'semester');
+            }
+
+            function setCurrentView(view) {
+                currentView = view;
+                localStorage.setItem('currentView', currentView); // Save current view in localStorage
+                updateViewButtons();
                 updateDateButton();
+            }
+
+            dayViewButton.addEventListener('click', function () {
+                setCurrentView('day');
             });
 
-
             weekViewButton.addEventListener('click', function () {
-                currentView = 'week';
-                weekViewButton.classList.add('active');
-                dayViewButton.classList.remove('active');
-                monthViewButton.classList.remove('active');
-                updateDateButton();
+                setCurrentView('week');
             });
 
             monthViewButton.addEventListener('click', function () {
-                currentView = 'month';
-                monthViewButton.classList.add('active');
-                dayViewButton.classList.remove('active');
-                weekViewButton.classList.remove('active');
-                updateDateButton();
+                setCurrentView('month');
+            });
+
+            semesterViewButton.addEventListener('click', function () {
+                setCurrentView('semester');
             });
 
             leftArrow.addEventListener('click', function () {
@@ -226,13 +239,11 @@
                 updateDateButton();
             });
 
-            // Initialize the button with today's date      
+            // Initialize the view and date button
+            updateViewButtons();
             updateDateButton();
 
-
-
-
-        // Dodanie obsługi kliknięcia na filtry
+            // Dodanie obsługi kliknięcia na filtry
             document.querySelectorAll('.filters button').forEach(button => {
                 button.addEventListener('click', () => {
                     // Przełączanie klasy 'active' na klikniętym przycisku
@@ -241,9 +252,8 @@
             });
         });
 
-
+        // Obsługa stylów
         document.addEventListener('DOMContentLoaded', () => {
-            // Sprawdź, czy styl jest zapisany w localStorage
             const savedTheme = localStorage.getItem('selectedTheme');
             const themeStylesheet = document.getElementById('theme-stylesheet');
 
@@ -251,13 +261,11 @@
                 themeStylesheet.setAttribute('href', savedTheme);
             }
 
-            // Przełącznik stylu
             const setTheme = (theme) => {
                 themeStylesheet.setAttribute('href', theme);
                 localStorage.setItem('selectedTheme', theme); // Zapisz styl w localStorage
             };
 
-            // Obsługa przycisków
             document.getElementById('dark-mode-button').addEventListener('click', () => {
                 setTheme('styles/darkmode_style.css');
             });
@@ -266,6 +274,7 @@
                 setTheme('styles/default_style.css');
             });
         });
+
     </script>
 
     <script>
