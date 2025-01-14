@@ -277,59 +277,5 @@
 
     </script>
 
-    <script>
-        document.getElementById('search').addEventListener('click', function () {
-
-            const indexNumber = document.getElementById('index-number').value.trim();
-            if (!indexNumber) {
-                alert('Wprowadź numer albumu.');
-                return;
-            }
-
-            const currentDate = new Date();
-            const startDate = currentDate.toISOString().split('T')[0];
-            const endDate = new Date(currentDate.getTime() + 24 * 60 * 60 * 1000).toISOString().split('T')[0];
-
-            const url = `http://localhost:8000/schedule-proxy.php?number=${indexNumber}&start=${startDate}&end=${endDate}`;
-
-            fetch(url)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Błąd podczas pobierania danych.');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Pobrane dane:', data);
-
-                    const calendarContainer = document.getElementById('calendar');
-                    calendarContainer.innerHTML = '';
-                    if (data.length === 0 || data[1].length === 0) {
-                        calendarContainer.innerHTML = '<p>Brak zajęć w podanym okresie.</p>';
-                        return;
-                    }
-
-                    data.forEach((item, index) => {
-                        if (index === 0) return;
-
-                        const lessonDiv = document.createElement('div');
-                        lessonDiv.classList.add('lesson');
-                        lessonDiv.innerHTML = `
-                        <h3>${item.title}</h3>
-                        <p>${item.description}</p>
-                        <p><strong>Prowadzący:</strong> ${item.worker_title}</p>
-                        <p><strong>Sala:</strong> ${item.room}</p>
-                        <p><strong>Data i godzina:</strong> ${item.start} - ${item.end}</p>
-                    `;
-                        calendarContainer.appendChild(lessonDiv);
-                    });
-                })
-                .catch(error => {
-                    console.error('Wystąpił błąd:', error);
-                    //alert('Nie udało się pobrać danych. Spróbuj ponownie później.');
-                });
-        });
-    </script>
-
     </body>
     </html>
