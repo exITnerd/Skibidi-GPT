@@ -14,9 +14,11 @@
         table {
             border-collapse: collapse;
             width: 100%;
-            max-width: 1200px;
-            margin: 20px auto;
+            max-width: 1350px;
+            margin-left: 100px;
             background-color: #f0f2f7;
+            border: 1px solid #ffffff;
+            table-layout: fixed;
         }
         th, td {
             border: 5px solid #ffffff;
@@ -72,7 +74,7 @@
         }
         .box {
             width: 300px;
-            margin: 20px auto;
+            margin: 20px 35px 0 auto;
             padding: 15px;
             border: 1px solid #959FCD;
             border-radius: 10px;
