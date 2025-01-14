@@ -6,8 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Plan ZUT</title>
         <link rel="icon" href="/images/icon.svg" type="image/svg+xml">
-        <link rel="stylesheet" href="styles/default_style.css">
-        <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css" rel="stylesheet">
+        <link id="theme-stylesheet" rel="stylesheet" href="styles/default_style.css">
         <link href="https://fonts.googleapis.com/css2?family=Jockey+One&display=swap" rel="stylesheet">
     </head>
     <body>
@@ -21,11 +20,11 @@
 
     </header>
     <div class="sidebar">
-        <div class="icon">    <button data-tooltip="Tryb ciemny">
+        <div class="icon">    <button id="dark-mode-button" data-tooltip="Tryb ciemny">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-brightness-high-fill" viewBox="0 0 16 16">
                     <path d="M12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"/>
                 </svg></button></div>
-        <div class="icon"><button data-tooltip="Tryb jasny"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-brightness-high" viewBox="0 0 16 16">
+        <div class="icon"><button id="default-mode-button" data-tooltip="Tryb jasny"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-brightness-high" viewBox="0 0 16 16">
                     <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"/>
                 </svg></button></div>
         <!-- Przycisk zmiany języka -->
@@ -64,7 +63,7 @@
         </div>
 
         <div class="bottom-buttons">
-            <button id="date-button">Select Date</button>
+
             <div class="control-buttons">
                 <?php $viewType = $_GET['view'] ?? 'day'; ?>
 
@@ -83,18 +82,23 @@
                 <button id="semester-view" class="<?= $viewType === 'semester' ? 'active' : '' ?>"
                         data-pl="Semestr" data-en="Semester"
                         onclick="window.location.href='?view=semester'">Semestr</button>
+
+                <button id="left_arrow"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"/>
+                    </svg></button>
+
+                <button id="date-button"></button>
+
+                <button id="right_arrow"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/>
+                    </svg></button>
             </div>
 
 
         <button><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
                 </svg></button>
-            <div id="calendar-container">
-                <div id="calendar"></div>
-                <div class="month-list" id="month-list" style="display: none;">
-                </div>
 
-            </div>
 
         </div>
     </div>
@@ -113,9 +117,164 @@
         <p data-pl="&copy; 2025 Plan Zajęć ZUT. Wszystkie prawa zastrzeżone." data-en="&copy; 2025 ZUT Schedule. All rights reserved.">&copy; 2025 Plan Zajęć. Wszystkie prawa zastrzeżone.</p>
     </footer>
 
+<<<<<<< Updated upstream
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
 
     <script src="/scripts/translate.js"></script>
+=======
+    <script>
+        function toggleLanguage() {
+            const elements = document.querySelectorAll("[data-pl][data-en]");
+            const currentLang = document.documentElement.lang;
+            const newLang = currentLang === "pl" ? "en" : "pl";
+
+            document.documentElement.lang = newLang;
+            elements.forEach(element => {
+                const newText = element.getAttribute(`data-${newLang}`);
+                if (element.tagName === "INPUT") {
+                    element.placeholder = newText;
+                } else {
+                    element.textContent = newText;
+                }
+            });
+        }
+
+        // Obserwowanie zmian w elemencie <main> i automatyczne tłumaczenie
+        const mainElement = document.querySelector('main');
+        const observer = new MutationObserver(() => {
+            toggleLanguage();
+        });
+
+        observer.observe(mainElement, { childList: true, subtree: true });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const dateButton = document.getElementById('date-button');
+            const dayViewButton = document.getElementById('day-view');
+            const weekViewButton = document.getElementById('week-view');
+            const monthViewButton = document.getElementById('month-view');
+            const leftArrow = document.getElementById('left_arrow');
+            const rightArrow = document.getElementById('right_arrow');
+
+            let currentView = 'day'; // default view
+            let currentDate = new Date();
+
+            function formatDate(date) {
+                return date.toISOString().split('T')[0];
+            }
+
+            function getWeekRange(date) {
+                const day = date.getDay();
+                const diffToMonday = (day === 0 ? -6 : 1) - day; // calculate Monday
+                const monday = new Date(date);
+                monday.setDate(date.getDate() + diffToMonday);
+
+                const sunday = new Date(monday);
+                sunday.setDate(monday.getDate() + 6);
+
+                return `${formatDate(monday)} - ${formatDate(sunday)}`;
+            }
+
+            function updateDateButton() {
+                if (currentView === 'day') {
+                    dateButton.textContent = formatDate(currentDate);
+                } else if (currentView === 'week') {
+                    dateButton.textContent = getWeekRange(currentDate);
+                } else if (currentView === 'month') {
+                    dateButton.textContent = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}`;
+                }
+            }
+
+            dayViewButton.addEventListener('click', function () {
+                console.log('Day view selected');
+                currentView = 'day';
+                dayViewButton.classList.add('active');
+                weekViewButton.classList.remove('active');
+                monthViewButton.classList.remove('active');
+                updateDateButton();
+            });
+
+
+            weekViewButton.addEventListener('click', function () {
+                currentView = 'week';
+                weekViewButton.classList.add('active');
+                dayViewButton.classList.remove('active');
+                monthViewButton.classList.remove('active');
+                updateDateButton();
+            });
+
+            monthViewButton.addEventListener('click', function () {
+                currentView = 'month';
+                monthViewButton.classList.add('active');
+                dayViewButton.classList.remove('active');
+                weekViewButton.classList.remove('active');
+                updateDateButton();
+            });
+
+            leftArrow.addEventListener('click', function () {
+                if (currentView === 'day') {
+                    currentDate.setDate(currentDate.getDate() - 1);
+                } else if (currentView === 'week') {
+                    currentDate.setDate(currentDate.getDate() - 7);
+                } else if (currentView === 'month') {
+                    currentDate.setMonth(currentDate.getMonth() - 1);
+                }
+                updateDateButton();
+            });
+
+            rightArrow.addEventListener('click', function () {
+                if (currentView === 'day') {
+                    currentDate.setDate(currentDate.getDate() + 1);
+                } else if (currentView === 'week') {
+                    currentDate.setDate(currentDate.getDate() + 7);
+                } else if (currentView === 'month') {
+                    currentDate.setMonth(currentDate.getMonth() + 1);
+                }
+                updateDateButton();
+            });
+
+            // Initialize the button with today's date      
+            updateDateButton();
+
+
+
+
+        // Dodanie obsługi kliknięcia na filtry
+            document.querySelectorAll('.filters button').forEach(button => {
+                button.addEventListener('click', () => {
+                    // Przełączanie klasy 'active' na klikniętym przycisku
+                    button.classList.toggle('active');
+                });
+            });
+        });
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Sprawdź, czy styl jest zapisany w localStorage
+            const savedTheme = localStorage.getItem('selectedTheme');
+            const themeStylesheet = document.getElementById('theme-stylesheet');
+
+            if (savedTheme) {
+                themeStylesheet.setAttribute('href', savedTheme);
+            }
+
+            // Przełącznik stylu
+            const setTheme = (theme) => {
+                themeStylesheet.setAttribute('href', theme);
+                localStorage.setItem('selectedTheme', theme); // Zapisz styl w localStorage
+            };
+
+            // Obsługa przycisków
+            document.getElementById('dark-mode-button').addEventListener('click', () => {
+                setTheme('styles/darkmode_style.css');
+            });
+
+            document.getElementById('default-mode-button').addEventListener('click', () => {
+                setTheme('styles/default_style.css');
+            });
+        });
+    </script>
+>>>>>>> Stashed changes
+
 
     </body>
     </html>
