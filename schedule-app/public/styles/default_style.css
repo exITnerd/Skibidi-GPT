@@ -277,6 +277,7 @@ background-color: #ffffff;
     color: #959FCD;
     font-size: 14px;
 line-height: 1.5;
+    z-index: 1000;
 }
 
 header>img{
