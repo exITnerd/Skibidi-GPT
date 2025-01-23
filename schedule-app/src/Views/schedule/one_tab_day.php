@@ -7,51 +7,10 @@
     <link rel="stylesheet" type="text/css" href="/styles/schedule-styles/one_tab_day_style.css">
 </head>
 <body>
-<div class="daily-schedule">
+<div class="daily-schedule" >
     <div class="daily-schedule-header">
-        Wtorek, 07.01.2025
     </div>
-    <div class="daily-schedule-body">
-        <div class="daily-schedule-row">
-            <div class="time-slot">8:15</div>
-            <div class="task-slot">Zarządzanie informacją 2</div>
-            <div class="tutor">dr hab. inż. Przemysław Korytkowski</div>
-            <div class="type-lab">laboratorium</div>
-            <div class="room">WI1 309</div>
-            <div class="group">335</div>
-        </div>
-        <div class="daily-schedule-row">
-            <div class="time-slot">10:15</div>
-            <div class="task-slot">Sztuczna inteligencja</div>
-            <div class="tutor">dr mgr inż. Andrii Shekhovtsov</div>
-            <div class="type-pro">projekt</div>
-            <div class="room">WI1 302</div>
-            <div class="group">312</div>
-        </div>
-        <div class="daily-schedule-row">
-            <div class="time-slot">12:15</div>
-            <div class="task-slot">Sieci komputerowe</div>
-            <div class="tutor">dr inż. Grzegorz Śliwiński</div>
-            <div class="type-lek">lektorat</div>
-            <div class="room">WI1 308</div>
-            <div class="group">335</div>
-        </div>
-        <div class="daily-schedule-row">
-            <div class="time-slot">14:15</div>
-            <div class="task-slot"></div>
-        </div>
-        <div class="daily-schedule-row">
-            <div class="time-slot">16:15</div>
-            <div class="task-slot">Sieci komputerowe</div>
-            <div class="tutor">dr inż. Grzegorz Śliwiński</div>
-            <div class="type-wyk">wykład</div>
-            <div class="room">WI1 215</div>
-            <div class="group">5 sem</div>
-        </div>
-        <div class="daily-schedule-row">
-            <div class="time-slot">18:15</div>
-            <div class="task-slot"></div>
-        </div>
+    <div class="daily-schedule-body" id="daily-schedule-body">
     </div>
 </div>
 
@@ -80,7 +39,7 @@
             .then(data => {
                 console.log('Pobrane dane:', data);
 
-                const calendarContainer = document.getElementById('calendar');
+                const calendarContainer = document.getElementById('daily-schedule-body');
                 calendarContainer.innerHTML = '';
                 if (data.length === 0 || data[1].length === 0) {
                     calendarContainer.innerHTML = '<p>Brak zajęć w podanym okresie.</p>';
@@ -90,22 +49,64 @@
                 data.forEach((item, index) => {
                     if (index === 0) return;
 
+                    const fullDateTime = new Date(item.start);
+                    const formattedTime = fullDateTime.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' });
+
                     const lessonDiv = document.createElement('div');
-                    lessonDiv.classList.add('lesson');
+                    lessonDiv.classList.add('daily-schedule-row');
+
+                    let typeClass = '';
+                    switch (item.lesson_status.toLowerCase()) {
+                        case 'laboratorium':
+                            typeClass = 'type-lab';
+                            break;
+                        case 'wykład':
+                            typeClass = 'type-wyk';
+                            break;
+                        case 'audytoryjne':
+                            typeClass = 'type-aud';
+                            break;
+                        case 'lektorat':
+                            typeClass = 'type-lek';
+                            break;
+                        case 'projekt':
+                            typeClass = 'type-pro';
+                            break;
+                        default:
+                            typeClass = 'type-other';
+                    }
+
                     lessonDiv.innerHTML = `
-                        <h3>${item.title}</h3>
-                        <p>${item.description}</p>
-                        <p><strong>Prowadzący:</strong> ${item.worker_title}</p>
-                        <p><strong>Sala:</strong> ${item.room}</p>
-                        <p><strong>Data i godzina:</strong> ${item.start} - ${item.end}</p>
+                        <div class="time-slot">${formattedTime}</div>
+                        <div class="task-slot">${item.subject}</div>
+                        <div class="tutor">${item.worker_title}</div>
+                        <div class="${typeClass}">${item.lesson_status}</div>
+                        <div class="room">${item.room}</div>
+                        <div class="group">${item.group_name}</div>
                     `;
                     calendarContainer.appendChild(lessonDiv);
                 });
             })
             .catch(error => {
                 console.error('Wystąpił błąd:', error);
-                //alert('Nie udało się pobrać danych. Spróbuj ponownie później.');
+                alert('Nie udało się pobrać danych. Spróbuj ponownie później.');
             });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const headerDiv = document.querySelector('.daily-schedule-header');
+        const currentDate = new Date();
+
+        const formattedDate = currentDate.toLocaleDateString('pl-PL', {
+            weekday: 'long',
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+        });
+
+        headerDiv.textContent = formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
     });
 </script>
 

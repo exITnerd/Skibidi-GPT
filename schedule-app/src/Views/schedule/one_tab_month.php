@@ -87,13 +87,7 @@
 <body>
 <table>
     <tr class="header-row">
-        <th>Poniedziałek</th>
-        <th>Wtorek</th>
-        <th>Środa</th>
-        <th>Czwartek</th>
-        <th>Piątek</th>
-        <th>Sobota</th>
-        <th>Niedziela</th>
+        <th>Aktualny miesiąc #TODO</th>
     </tr>
     <tr>
         <td><span class="day">1</span>
@@ -173,5 +167,104 @@
 <div class="box">
     Tu będą statystyki
 </div>
+
+<script>
+    document.getElementById('search').addEventListener('click', function () {
+
+        const indexNumber = document.getElementById('index-number').value.trim();
+        if (!indexNumber) {
+            alert('Wprowadź numer albumu.');
+            return;
+        }
+
+        const currentDate = new Date();
+        const startDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).toISOString().split('T')[0]; // Pierwszy dzień miesiąca
+        const endDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).toISOString().split('T')[0]; // Ostatni dzień miesiąca
+
+        const url = `http://localhost:8000/schedule-proxy.php?number=${indexNumber}&start=${startDate}&end=${endDate}`;
+
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Błąd podczas pobierania danych.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Pobrane dane:', data);
+
+                const calendarContainer = document.getElementById('monthly-schedule-body');
+                calendarContainer.innerHTML = '';
+                if (data.length === 0 || data[1].length === 0) {
+                    calendarContainer.innerHTML = '<p>Brak zajęć w podanym okresie.</p>';
+                    return;
+                }
+
+                // Tworzymy tablicę dni w miesiącu
+                const monthSchedule = Array(31).fill(null).map(() => []); // 31 dni w miesiącu
+
+                // Przypisujemy zajęcia do odpowiednich dni
+                data.forEach((item) => {
+                    const fullDateTime = new Date(item.start);
+                    const day = fullDateTime.getDate() - 1; // Numer dnia (1-31), więc odejmujemy 1
+
+                    const lessonDiv = document.createElement('div');
+                    lessonDiv.classList.add('event');
+
+                    let typeClass = '';
+                    switch (item.lesson_status.toLowerCase()) {
+                        case 'laboratorium':
+                            typeClass = 'type-lab';
+                            break;
+                        case 'wykład':
+                            typeClass = 'type-wyk';
+                            break;
+                        case 'audytoryjne':
+                            typeClass = 'type-aud';
+                            break;
+                        case 'lektorat':
+                            typeClass = 'type-lek';
+                            break;
+                        case 'projekt':
+                            typeClass = 'type-pro';
+                            break;
+                        default:
+                            typeClass = 'type-other';
+                    }
+
+                    lessonDiv.innerHTML = `
+                    <div class="time-slot">${fullDateTime.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' })}</div>
+                    <div class="task-slot">${item.subject}</div>
+                    <div class="tutor">${item.worker_title}</div>
+                    <div class="${typeClass}">${item.lesson_status}</div>
+                    <div class="room">${item.room}</div>
+                    <div class="group">${item.group_name}</div>
+                `;
+
+                    monthSchedule[day].push(lessonDiv);
+                });
+
+                // Wyświetlamy zajęcia w tabeli
+                const tableRows = document.querySelectorAll('.monthly-schedule-row');
+                tableRows.forEach((row, rowIndex) => {
+                    const dayIndex = rowIndex * 7; // Indeks dni w miesiącu
+                    row.querySelectorAll('td').forEach((cell, cellIndex) => {
+                        const day = dayIndex + cellIndex;
+                        if (monthSchedule[day]) {
+                            monthSchedule[day].forEach(lesson => {
+                                cell.appendChild(lesson);
+                            });
+                        }
+                    });
+                });
+            })
+            .catch(error => {
+                console.error('Wystąpił błąd:', error);
+                alert('Nie udało się pobrać danych. Spróbuj ponownie później.');
+            });
+    });
+
+</script>
+
 </body>
 </html>
