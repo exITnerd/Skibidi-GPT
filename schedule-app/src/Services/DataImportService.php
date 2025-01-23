@@ -59,19 +59,22 @@ class DataImportService
     {
         [$title, $firstName, $lastName] = $this->splitTeacherName($fullName);
 
-        $stmt = $this->db->prepare("SELECT teacher_id FROM teachers WHERE first_name = ? AND last_name = ?");
-        $stmt->execute([$firstName, $lastName]);
+        // Sprawdzanie, czy nauczyciel już istnieje w bazie
+        $stmt = $this->db->prepare("SELECT teacher_id FROM teachers WHERE first_name = ? AND last_name = ? AND title = ?");
+        $stmt->execute([$firstName, $lastName, $title]);
         $teacher = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($teacher) {
             return (int)$teacher['teacher_id'];
         }
 
+        // Wstawianie nowego nauczyciela
         $stmt = $this->db->prepare("INSERT INTO teachers (first_name, last_name, title) VALUES (?, ?, ?)");
         $stmt->execute([$firstName, $lastName, $title]);
 
         return (int)$this->db->lastInsertId();
     }
+
 
     private function insertOrGetSubject(string $subjectName, string $lessonForm): int
     {
@@ -137,7 +140,33 @@ class DataImportService
 
     private function splitTeacherName(string $fullName): array
     {
-        preg_match('/^(.*?) (.*?) (.*)$/', $fullName, $matches);
-        return [$matches[1], $matches[2], $matches[3]]; //errors everywhere bruuuuuh
+        $parts = explode(' ', $fullName);
+
+        $possibleTitles = ['dr', 'dr.', 'dr hab.', 'prof.', 'prof.', 'mgr', 'inż.', 'inż'];
+
+        $titleParts = [];
+        $nameParts = [];
+
+        foreach ($parts as $part) {
+            if (in_array($part, $possibleTitles)) {
+                $titleParts[] = $part;
+            } else {
+                $nameParts[] = $part;
+            }
+        }
+
+        $title = implode(' ', $titleParts);
+
+        if (count($nameParts) >= 2) {
+            $firstName = implode(' ', array_slice($nameParts, 0, -1));
+            $lastName = array_pop($nameParts);
+        } else {
+            $firstName = implode(' ', $nameParts);
+            $lastName = '';
+        }
+
+        return [$firstName, $lastName, $title]; // Imię, nazwisko, tytuł
     }
+
+
 }
