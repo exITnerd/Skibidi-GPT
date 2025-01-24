@@ -57,9 +57,8 @@ class DataImportService
 
     private function insertOrGetTeacher(string $fullName): int
     {
-        [$title, $firstName, $lastName] = $this->splitTeacherName($fullName);
+        [$lastName, $firstName, $title] = $this->splitTeacherName($fullName);
 
-        // Sprawdzanie, czy nauczyciel już istnieje w bazie
         $stmt = $this->db->prepare("SELECT teacher_id FROM teachers WHERE first_name = ? AND last_name = ? AND title = ?");
         $stmt->execute([$firstName, $lastName, $title]);
         $teacher = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -68,13 +67,11 @@ class DataImportService
             return (int)$teacher['teacher_id'];
         }
 
-        // Wstawianie nowego nauczyciela
         $stmt = $this->db->prepare("INSERT INTO teachers (first_name, last_name, title) VALUES (?, ?, ?)");
         $stmt->execute([$firstName, $lastName, $title]);
 
         return (int)$this->db->lastInsertId();
     }
-
 
     private function insertOrGetSubject(string $subjectName, string $lessonForm): int
     {
@@ -140,33 +137,31 @@ class DataImportService
 
     private function splitTeacherName(string $fullName): array
     {
-        $parts = explode(' ', $fullName);
+        $possibleTitles = ['dr inż.', 'dr.', 'dr hab. inż.', 'prof.', 'mgr', 'inż.', 'inż'];
 
-        $possibleTitles = ['dr', 'dr.', 'dr hab.', 'prof.', 'prof.', 'mgr', 'inż.', 'inż'];
+        $fullName = trim($fullName);
+        $firstName = '';
+        $lastName = '';
 
-        $titleParts = [];
-        $nameParts = [];
-
-        foreach ($parts as $part) {
-            if (in_array($part, $possibleTitles)) {
-                $titleParts[] = $part;
-            } else {
-                $nameParts[] = $part;
+        foreach ($possibleTitles as $possibleTitle) {
+            if (str_starts_with($fullName, $possibleTitle)) {
+                $title = $possibleTitle;
+                $fullName = trim(substr($fullName, strlen($possibleTitle)));
+                break;
             }
         }
 
-        $title = implode(' ', $titleParts);
+        $nameParts = explode(' ', $fullName);
 
         if (count($nameParts) >= 2) {
-            $firstName = implode(' ', array_slice($nameParts, 0, -1));
-            $lastName = array_pop($nameParts);
+            $firstName = $nameParts[0];
+            $lastName = implode(' ', array_slice($nameParts, 1)); // Reszta to nazwisko
         } else {
-            $firstName = implode(' ', $nameParts);
+            $firstName = $fullName;
             $lastName = '';
         }
 
-        return [$firstName, $lastName, $title]; // Imię, nazwisko, tytuł
+        return [$firstName, $lastName, $title];
     }
-
 
 }
