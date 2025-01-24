@@ -13,3 +13,4 @@ if (isset($_GET['number']) && isset($_GET['start']) && isset($_GET['end'])) {
 
     echo $response;
 }
+

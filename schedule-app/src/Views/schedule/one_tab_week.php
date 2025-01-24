@@ -111,7 +111,7 @@
     </tr>
 </table>
 <div class="box">
-    Tu będą statystyki
+    Statystyki
 </div>
 
 <script>
@@ -144,6 +144,41 @@
         return { start: weekDates[0].toISOString().split('T')[0], end: weekDates[6].toISOString().split('T')[0] };
     }
 
+    function calculateStatistics(data) {
+        let totalClasses = 0;
+        let labs = 0;
+        let auditoriums = 0;
+        let lectures = 0;
+        let flc = 0;
+
+        data.forEach(item => {
+            totalClasses++;
+            switch (item.lesson_status) {
+                case 'laboratorium':
+                    labs++;
+                    break;
+                case 'audytoryjne':
+                    auditoriums++;
+                    break;
+                case 'wykład':
+                    lectures++;
+                    break;
+                case 'lektorat':
+                    flc++;
+                    break;
+            }
+        });
+
+        const statsBox = document.querySelector('.box');
+        statsBox.innerHTML = `
+        <p>Ilość zajęć: ${totalClasses}</p>
+        <p>Audytoria: ${auditoriums}</p>
+        <p>Lektoraty: ${flc}</p>
+        <p>Laboratoria: ${labs}</p>
+        <p>Wykłady: ${lectures}</p>
+    `;
+    }
+
     function fetchSchedule(indexNumber, startDate, endDate) {
         const url = `http://localhost:8000/schedule-proxy.php?number=${indexNumber}&start=${startDate}&end=${endDate}`;
 
@@ -173,7 +208,8 @@
                     const dayIndex = lessonDate.getDay() === 0 ? 6 : lessonDate.getDay() - 1;
                     const time = lessonDate.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' });
 
-                    const rowIndex = lessonDate.getHours() - 8 + (lessonDate.getMinutes() >= 15 ? 1 : 0);
+                    const rowIndex = (lessonDate.getHours() - 8) / 2 + 1;
+
                     const cells = rows[rowIndex]?.querySelectorAll('td');
                     const targetCell = cells ? cells[dayIndex + 1] : null;
 
@@ -182,7 +218,7 @@
                         lessonDiv.classList.add('daily-schedule-row');
 
                         let typeClass = '';
-                        switch (item.lesson_status.toLowerCase()) {
+                        switch (item.lesson_status) {
                             case 'laboratorium':
                                 typeClass = 'type lab';
                                 break;
@@ -210,6 +246,9 @@
                         targetCell.appendChild(lessonDiv);
                     }
                 });
+
+                calculateStatistics(data);
+
             })
             .catch(error => {
                 console.error('Wystąpił błąd:', error);

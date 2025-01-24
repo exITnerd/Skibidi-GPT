@@ -46,7 +46,7 @@
     </div>
     <div class="content">
         <div class="buttons-container">
-            <input type="text" placeholder="Wykładowca" data-pl="Wykładowca" data-en="Lecturer">
+            <input id="lecturer-name" type="text" placeholder="Wykładowca (Imię i Nazwisko)" data-pl="Wykładowca (Imię i Nazwisko)" data-en="Lecturer (First and Last Name)">
             <input type="text" placeholder="Sala/Budynek" data-pl="Sala/Budynek" data-en="Room/Building">
             <input type="text" placeholder="Przedmiot" data-pl="Przedmiot" data-en="Subject">
             <input type="text" placeholder="Grupa" data-pl="Grupa" data-en="Group">
