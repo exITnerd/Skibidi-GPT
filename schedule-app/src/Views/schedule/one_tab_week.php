@@ -122,6 +122,31 @@
     const searchButton = document.getElementById('search');
     const indexInput = document.getElementById('index-number');
 
+    //jd
+    document.addEventListener('DOMContentLoaded', function () {
+        // Pobierz parametry z URL
+        const urlParams = new URLSearchParams(window.location.search);
+
+        const indexNumber = urlParams.get('index') || '';
+        const startDate = urlParams.get('start') || '';
+        const endDate = urlParams.get('end') || '';
+
+        // Wypełnij pola filtrów
+        if (indexNumber) {
+            document.getElementById('index-number').value = indexNumber;
+        }
+
+        // Jeśli start i end są podane w URL, użyj ich do wczytania harmonogramu
+        if (indexNumber && startDate && endDate) {
+            fetchSchedule(indexNumber, startDate, endDate);
+        } else if (indexNumber) {
+            // Jeśli brak dat w URL, wczytaj harmonogram na podstawie obecnego tygodnia
+            const { start, end } = setWeekDates(new Date());
+            fetchSchedule(indexNumber, start, end);
+        }
+    });
+//jd
+
     function setWeekDates(baseDate) {
         const base = new Date(baseDate);
         const dayOfWeek = base.getDay();
@@ -145,7 +170,7 @@
     }
 
     function calculateStatistics(data) {
-        let totalClasses = 0;
+        let totalClasses = -1; //cause there is an empty table returned by API
         let labs = 0;
         let auditoriums = 0;
         let lectures = 0;
@@ -264,20 +289,35 @@
     leftArrow.addEventListener('click', function () {
         currentBaseDate.setDate(currentBaseDate.getDate() - 7);
         dateButton.textContent = currentBaseDate.toLocaleDateString('pl-PL');
+
         const dates = setWeekDates(currentBaseDate);
         start = dates.start;
         end = dates.end;
+
+        const urlParams = new URLSearchParams(window.location.search);
+        urlParams.set('start', start);
+        urlParams.set('end', end);
+        history.pushState(null, '', `?${urlParams.toString()}`);
+
         fetchScheduleFromInput(start, end);
     });
 
     rightArrow.addEventListener('click', function () {
         currentBaseDate.setDate(currentBaseDate.getDate() + 7);
         dateButton.textContent = currentBaseDate.toLocaleDateString('pl-PL');
+
         const dates = setWeekDates(currentBaseDate);
         start = dates.start;
         end = dates.end;
+
+        const urlParams = new URLSearchParams(window.location.search);
+        urlParams.set('start', start);
+        urlParams.set('end', end);
+        history.pushState(null, '', `?${urlParams.toString()}`);
+
         fetchScheduleFromInput(start, end);
     });
+
 
     searchButton.addEventListener('click', function () {
         const indexNumber = indexInput.value.trim();
@@ -285,8 +325,23 @@
             alert("Proszę wprowadzić numer albumu.");
             return;
         }
-        fetchScheduleFromInput(start, end, indexNumber);
+
+        const { start, end } = setWeekDates(currentBaseDate);
+
+        const urlParams = new URLSearchParams(window.location.search);
+
+        urlParams.set('view', 'week');
+        urlParams.set('index', indexNumber);
+        urlParams.set('start', start);
+        urlParams.set('end', end);
+
+        const newUrl = `${window.location.pathname}?${urlParams.toString()}`;
+        history.pushState(null, '', newUrl);
+
+        fetchSchedule(indexNumber, start, end);
     });
+
+
 
     function fetchScheduleFromInput(start, end, indexNumber) {
         if (!indexNumber) {
@@ -298,8 +353,6 @@
     const indexNumber = indexInput.value.trim();
     if (indexNumber) fetchSchedule(indexNumber, start, end);
 </script>
-
-
 
 </body>
 </html>

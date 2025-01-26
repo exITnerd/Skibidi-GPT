@@ -10,6 +10,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Jockey+One&display=swap" rel="stylesheet">
     </head>
     <body>
+
     <header>
         <div class="logo">
             <span class="plan" data-pl="PLAN" data-en="SCHEDULE">PLAN</span>
@@ -47,11 +48,11 @@
     <div class="content">
         <div class="buttons-container">
             <input id="lecturer-name" type="text" placeholder="Wykładowca (Imię i Nazwisko)" data-pl="Wykładowca (Imię i Nazwisko)" data-en="Lecturer (First and Last Name)">
-            <input type="text" placeholder="Sala/Budynek" data-pl="Sala/Budynek" data-en="Room/Building">
-            <input type="text" placeholder="Przedmiot" data-pl="Przedmiot" data-en="Subject">
-            <input type="text" placeholder="Grupa" data-pl="Grupa" data-en="Group">
+            <input id="room-id" type="text" placeholder="Sala/Budynek" data-pl="Sala/Budynek" data-en="Room/Building">
+            <input id="subject-id" type="text" placeholder="Przedmiot" data-pl="Przedmiot" data-en="Subject">
+            <input id="group-id" type="text" placeholder="Grupa" data-pl="Grupa" data-en="Group">
             <input id="index-number" type="text" placeholder="Numer Albumu" data-pl="Numer Albumu" data-en="Album Number">
-            <button data-pl="Wyczyść filtry" data-en="Clear filters">Wyczyść filtry</button>
+            <button id="clear-filters" data-pl="Wyczyść filtry" data-en="Clear filters">Wyczyść filtry</button>
         </div>
 
         <div class="filters">
@@ -115,8 +116,73 @@
         <p data-pl="&copy; 2025 Plan Zajęć ZUT. Wszystkie prawa zastrzeżone." data-en="&copy; 2025 ZUT Schedule. All rights reserved.">&copy; 2025 Plan Zajęć. Wszystkie prawa zastrzeżone.</p>
     </footer>
 
-
     <script>
+        //
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const indexNumber = urlParams.get('index') || '';
+            const viewType = urlParams.get('view') || 'week';
+            const startDate = urlParams.get('start') || '';
+            const endDate = urlParams.get('end') || '';
+
+            if (indexNumber) {
+                document.getElementById('index-number').value = indexNumber;
+            }
+
+            if (viewType === 'week' && indexNumber) {
+                if (startDate && endDate) {
+                    fetchSchedule(indexNumber, startDate, endDate);
+                } else {
+                    const { start, end } = setWeekDates(new Date());
+                    fetchSchedule(indexNumber, start, end);
+                }
+            }
+        });
+
+        document.getElementById('clear-filters').addEventListener('click', function () {
+            document.getElementById('lecturer-name').value = '';
+            document.getElementById('index-number').value = '';
+            document.getElementById('room-id').value = '';
+            document.getElementById('subject-id').value = '';
+            document.getElementById('group-id').value = '';
+            document.querySelectorAll('.filters input[type="text"]').forEach(input => input.value = '');
+
+            document.querySelectorAll('.filters button').forEach(button => button.classList.remove('active'));
+
+            const currentView = new URLSearchParams(window.location.search).get('view') || 'day';
+
+            history.pushState(null, '', `?view=${currentView}`);
+        });
+
+        function updateURLWithFilters() {
+            const urlParams = new URLSearchParams();
+
+            const lecturerName = document.getElementById('lecturer-name').value.trim();
+            const indexNumber = document.getElementById('index-number').value.trim();
+            const room = document.getElementById('room-id').value.trim();
+            const subject = document.getElementById('subject-id').value.trim();
+            const group = document.getElementById('group-id').value.trim();
+
+            if (lecturerName) urlParams.set('lecturer', lecturerName);
+            if (indexNumber) urlParams.set('index', indexNumber);
+            if (room) urlParams.set('room', room);
+            if (subject) urlParams.set('subject', subject);
+            if (group) urlParams.set('group', group);
+
+            const activeFilters = Array.from(document.querySelectorAll('.filters button.active'))
+                .map(button => button.textContent.trim().toLowerCase());
+            if (activeFilters.length > 0) urlParams.set('types', activeFilters.join(','));
+
+            const currentView = localStorage.getItem('currentView') || 'day';
+            const newUrl = `http://localhost:8000/?view=${currentView}&${urlParams.toString()}`;
+            history.pushState(null, '', newUrl);
+        }
+
+        document.querySelectorAll('.filters button, .buttons-container input').forEach(element => {
+            element.addEventListener('change', updateURLWithFilters);
+        });
+
+
         function toggleLanguage() {
             const elements = document.querySelectorAll("[data-pl][data-en]");
             const currentLang = document.documentElement.lang;
@@ -132,6 +198,28 @@
                 }
             });
         }
+
+        function applyFiltersFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+
+            document.getElementById('lecturer-name').value = urlParams.get('lecturer') || '';
+            document.getElementById('index-number').value = urlParams.get('index') || '';
+            document.querySelector('input[placeholder="Sala/Budynek"]').value = urlParams.get('room') || '';
+            document.querySelector('input[placeholder="Przedmiot"]').value = urlParams.get('subject') || '';
+            document.querySelector('input[placeholder="Grupa"]').value = urlParams.get('group') || '';
+
+            const types = (urlParams.get('types') || '').split(',');
+            document.querySelectorAll('.filters button').forEach(button => {
+                const buttonText = button.textContent.trim().toLowerCase();
+                if (types.includes(buttonText)) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', applyFiltersFromURL);
 
         // Obserwowanie zmian w elemencie <main> i automatyczne tłumaczenie
         const mainElement = document.querySelector('main');
