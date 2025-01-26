@@ -17,25 +17,56 @@
 <!-- Day & date header load -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        const dateButton = document.getElementById('date-button');
         const headerDiv = document.querySelector('.daily-schedule-header');
-        const currentDate = new Date();
 
-        const formattedDate = currentDate.toLocaleDateString('pl-PL', {
-            weekday: 'long',
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric'
+        function updateHeaderFromButton() {
+            const buttonDate = dateButton.textContent.trim();
+            if (buttonDate) {
+                const formattedDate = new Date(buttonDate).toLocaleDateString('pl-PL', {
+                    weekday: 'long',
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                });
+                headerDiv.textContent = formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
+            }
+        }
+
+        const observer = new MutationObserver(() => {
+            updateHeaderFromButton();
         });
 
-        headerDiv.textContent = formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
+        observer.observe(dateButton, { childList: true, subtree: true });
+
+        updateHeaderFromButton();
+
+
     });
 </script>
+
 
 <script>
     document.getElementById('search').addEventListener('click', function () {
         const fullName = document.getElementById('lecturer-name').value.trim();
         const indexNumber = document.getElementById('index-number').value.trim();
         const calendarContainer = document.getElementById('daily-schedule-body');
+
+        const headerDiv = document.querySelector('.daily-schedule-header');
+        const headerDateText = headerDiv.textContent.trim();
+
+        const dateParts = headerDateText.split(',')[1]?.trim() || headerDateText;
+        const [day, month, year] = dateParts.split('.');
+
+        const headerDate = new Date(`${year}-${month}-${day}`);
+
+        if (isNaN(headerDate)) {
+            alert('Nieprawidłowa data w nagłówku. Upewnij się, że jest poprawna.');
+            return;
+        }
+
+        const startDate = headerDate.toISOString().split('T')[0];
+        const endDate = new Date(headerDate.getTime() + 24 * 60 * 60 * 1000).toISOString().split('T')[0];
 
         calendarContainer.innerHTML = '';
 
@@ -44,13 +75,7 @@
             return;
         }
 
-
-
         if (indexNumber) {
-            const currentDate = new Date();
-            const startDate = currentDate.toISOString().split('T')[0];
-            const endDate = new Date(currentDate.getTime() + 24 * 60 * 60 * 1000).toISOString().split('T')[0];
-
             const url = `http://localhost:8000/schedule-proxy.php?number=${indexNumber}&start=${startDate}&end=${endDate}`;
 
             fetch(url)
@@ -74,10 +99,6 @@
             const firstName = nameParts[0];
             const lastName = nameParts.slice(1).join(' ');
 
-            const currentDate = new Date();
-            const startDate = currentDate.toISOString().split('T')[0];
-            const endDate = new Date(currentDate.getTime() + 24 * 60 * 60 * 1000).toISOString().split('T')[0];
-
             const url = `http://localhost:8000/lecturer-schedule.php?first_name=${encodeURIComponent(firstName)}&last_name=${encodeURIComponent(lastName)}&start=${encodeURIComponent(startDate)}&end=${encodeURIComponent(endDate)}`;
 
             fetch(url)
@@ -95,6 +116,7 @@
             alert('Wprowadź dane: numer albumu studenta albo imię i nazwisko wykładowcy.');
         }
     });
+
 
     function renderSchedule(data, container) {
         if (!data || data.length === 0) {
@@ -121,6 +143,7 @@
         `;
             container.appendChild(lessonDiv);
         });
+
     }
 
 
